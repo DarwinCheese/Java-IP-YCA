@@ -90,12 +90,35 @@ public class Fitness extends JPanel implements ActionListener{
         submitPersonBtn = new JButton("Gegevens verzenden");
         submitPersonBtn.setMnemonic(KeyEvent.VK_ENTER);
         submitPersonBtn.addActionListener(new ActionListener() {
+            
             @Override
             public void actionPerformed(ActionEvent e) {
+                String inputVoornaam = voornaam.getText();
+                String inputAchternaam = achternaam.getText();
+                int inputLeeftijd =  Integer.parseInt(leeftijd.getText());
+                int inputLengte = Integer.parseInt(lengte.getText());
+                String inputGewicht = gewicht.getText();
                 
-                Person person = new Person("Darwin", "Gutierrez", 'M', 21, 180, 80, true);
-                persons.add(person);
+                
+                boolean isSelected = nogTrainende.isSelected();
+                boolean inputTrainende;
+                
+                if(isSelected ){
+                   inputTrainende = true;
+                } else {
+                   inputTrainende = false;
+                }
+                
+                if(inputGewicht.equals("")){
+                    //constructor zonder gewicht
+                    Person person = new Person(inputVoornaam, inputAchternaam, 'M', inputLeeftijd, inputLengte, inputTrainende);
+                } else {
+                    int inputGewichtInt = Integer.parseInt(gewicht.getText());
+                    Person person = new Person(inputVoornaam, inputAchternaam, 'M', inputLeeftijd, inputLengte, inputGewichtInt, inputTrainende);
+                    persons.add(person);
+                }
             }
+            
         });
         
         panel1.add(new JLabel(""));
@@ -156,11 +179,17 @@ public class Fitness extends JPanel implements ActionListener{
         getPersonsBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String voornaam = persons.get(0).getVoornaam();
-                String achternaam = persons.get(0).getAchternaam();
-                
-                System.out.println("object: " + voornaam);
-                panel3.add(new JLabel(voornaam + achternaam));
+                //for-loop
+                for (int i = 0; i < persons.size(); i++) {
+                    String personVoornaam = persons.get(i).getVoornaam();
+                    String personAchternaam = persons.get(i).getAchternaam();
+                    int personLeeftijd = persons.get(i).getLeeftijd();
+                    char personGeslacht = persons.get(i).getGeslacht();
+                    int personLengte = persons.get(i).getLengte();
+                    int personGewicht = persons.get(i).getGewicht();
+                    boolean personTrainende = persons.get(i).isNogTrainende();
+                    panel3.add(new JLabel(personVoornaam + " " + personAchternaam + " " + personLeeftijd + " " + personGeslacht + " " + personLengte + " " + personGewicht + " " + personTrainende));
+                }
                 panel3.validate();
             }
         });
