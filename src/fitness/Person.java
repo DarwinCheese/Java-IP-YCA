@@ -17,17 +17,23 @@ public class Person {
     private int lengte;
     private int gewicht;
     private boolean nogTrainende;
+    private int squat;
+    private int bench;
+    private int deadlift;
     
-    public Person(String voornaam, String achternaam, char geslacht, int leeftijd, int lengte, boolean nogTrainende ) {
+    public Person(String voornaam, String achternaam, char geslacht, int leeftijd, int lengte, boolean nogTrainende, int squat, int bench, int deadlift ) {
         this.voornaam = voornaam;
         this.achternaam = achternaam;
         this.geslacht = geslacht;
         this.leeftijd = leeftijd;
         this.lengte = lengte;
         this.nogTrainende = nogTrainende;
+        this.squat = squat;
+        this.bench = bench;
+        this.deadlift = deadlift;
     }
     
-    public Person(String voornaam, String achternaam, char geslacht, int leeftijd, int lengte, int gewicht, boolean nogTrainende) {
+    public Person(String voornaam, String achternaam, char geslacht, int leeftijd, int lengte, int gewicht, boolean nogTrainende, int squat, int bench, int deadlift) {
         this.voornaam = voornaam;
         this.achternaam = achternaam;
         this.geslacht = geslacht;
@@ -35,6 +41,9 @@ public class Person {
         this.lengte = lengte;
         this.gewicht = gewicht;
         this.nogTrainende = nogTrainende;
+        this.squat = squat;
+        this.bench = bench;
+        this.deadlift = deadlift;
     }
 
     public String getVoornaam() {
@@ -91,6 +100,30 @@ public class Person {
 
     public void setNogTrainende(boolean nogTrainende) {
         this.nogTrainende = nogTrainende;
+    }
+
+    public int getSquat() {
+        return squat;
+    }
+
+    public void setSquat(int squat) {
+        this.squat = squat;
+    }
+
+    public int getBench() {
+        return bench;
+    }
+
+    public void setBench(int bench) {
+        this.bench = bench;
+    }
+
+    public int getDeadlift() {
+        return deadlift;
+    }
+
+    public void setDeadlift(int deadlift) {
+        this.deadlift = deadlift;
     }
     
     
