@@ -38,6 +38,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Laptop10
  */
 public class Fitness extends JPanel{
+    
+    int personCount;
 
     /**
      * @param args the command line arguments
@@ -110,10 +112,13 @@ public class Fitness extends JPanel{
         
         //Gegevens inlezen
         
+        String personCountString = null;
+        
         ArrayList<Person> persons = new ArrayList<Person>();
         submitPersonBtn = new JButton("Gegevens verzenden");
         submitPersonBtn.setMnemonic(KeyEvent.VK_ENTER);
         submitPersonBtn.addActionListener(new ActionListener() {
+            
             
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -162,13 +167,22 @@ public class Fitness extends JPanel{
 
                 tableModel.addRow(data);
                 table.repaint();
+                
+                
+                
+               
                 panel3.validate();
                 panel3.repaint();
+                panel1.validate();
+                panel1.repaint();
                     
             }
             
         });
+        personCountString = Integer.toString(personCount);
         
+        
+        //Gegevens wegschrijven naar file
         toFileBtn = new JButton("Gegevens wegschrijven");
         toFileBtn.setMnemonic(KeyEvent.VK_ENTER);
         toFileBtn.addActionListener(new ActionListener() {
@@ -176,12 +190,28 @@ public class Fitness extends JPanel{
                 PrintWriter writer;
                 try {
                     writer = new PrintWriter("personen.txt", "UTF-8");
-                    writer.println("Hallo");
-                    writer.println("Doei");
-                    //For-loop alle personen
+                    
+                    for (int i = 0; i < persons.size(); i++) {
+                        String personVoornaam = persons.get(i).getVoornaam();
+                        String personAchternaam = persons.get(i).getAchternaam();
+                        int personLeeftijd = persons.get(i).getLeeftijd();
+                        char personGeslacht = persons.get(i).getGeslacht();
+                        int personLengte = persons.get(i).getLengte();
+                        int personGewicht = persons.get(i).getGewicht();
+                        boolean personTrainende = persons.get(i).isNogTrainende();
+                        int personSquat = persons.get(i).getSquat(); 
+                        int personBench = persons.get(i).getBench();
+                        int personDeadlift = persons.get(i).getDeadlift();
+                        
+                        writer.println((i + 1) + ". " + personVoornaam + " " + personAchternaam + " " + personLeeftijd + " " + personGeslacht + " " + personLengte + " " + personGewicht + " " + personTrainende + " " + personSquat + " " + personBench + " " + personDeadlift);
+                    }
                     writer.close();
                     
-                    JOptionPane.showMessageDialog(null, "memes");
+                    for (Person person : persons) {
+                        System.out.println(person.getVoornaam() + " " + person.getAchternaam() + " " + person.getLeeftijd() + " " + person.getGeslacht() + " " + person.getLengte() + " " + person.getGewicht() + " " + person.getSquat() + " " + person.getBench() + " " + person.getDeadlift() + " " + person.isNogTrainende());
+                    }
+                    
+                    JOptionPane.showMessageDialog(null, "Gegevens weggeschreven in personen.txt!");
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(Fitness.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (UnsupportedEncodingException ex) {
@@ -217,7 +247,6 @@ public class Fitness extends JPanel{
         panel1.add(deadlift);
         panel1.add(submitPersonBtn);
         panel1.add(toFileBtn);
-        
       
         add(tabbedPane);
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -229,7 +258,7 @@ public class Fitness extends JPanel{
         JLabel filler = new JLabel(text);
         
         filler.setHorizontalAlignment(JLabel.CENTER);
-        panel.setLayout(new GridLayout(13,0,10,10));
+        panel.setLayout(new GridLayout(14,0,10,10));
         
         panel.add(filler);
         
